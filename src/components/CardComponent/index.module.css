@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap");
 .card {
-  --width: 125px;
-  --height: 176px;
+  --width: 100px;
+  --height: 138px;
   width: var(--width);
   position: relative;
   cursor: pointer;
@@ -20,13 +20,13 @@
   height: var(--height);
 }
 
-.card:not(.shown) {
-  cursor: not-allowed;
-}
-
 .card:not(.shown) .inner {
   -webkit-transform: rotateY(180deg);
           transform: rotateY(180deg);
+}
+
+.card:not(.mine) {
+  cursor: not-allowed;
 }
 
 .card .front,
@@ -38,7 +38,7 @@
   width: 100%;
   background-color: #f9fcfa;
   border-radius: 4px;
-  padding: 10px 0;
+  padding: 8px 0;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
 }

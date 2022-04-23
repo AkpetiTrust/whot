@@ -12,6 +12,8 @@ const store = createStore(
     usedCards,
     opponentCards,
     activeCard,
+    cardToMove: null,
+    whoIsToPlay: "user",
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

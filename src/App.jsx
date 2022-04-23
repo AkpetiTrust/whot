@@ -1,11 +1,18 @@
-import { UserCards, OpponentCards } from "./components";
+import { UserCards, OpponentCards, CenterArea } from "./components";
+import { Flipper } from "react-flip-toolkit";
+import { useSelector } from "react-redux";
 
 function App() {
+  const cardToMove = useSelector((state) => state.cardToMove);
+
   return (
-    <div className="App">
-      <OpponentCards />
-      <UserCards />
-    </div>
+    <Flipper flipKey={cardToMove}>
+      <div className="App">
+        <OpponentCards />
+        <CenterArea />
+        <UserCards />
+      </div>
+    </Flipper>
   );
 }
 
