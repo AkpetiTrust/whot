@@ -1,0 +1,57 @@
+.shape {
+  --width: 80px;
+  width: var(--width);
+  height: var(--width);
+  background-color: #511b20;
+}
+
+.shape:not(.small) {
+  margin: 10px auto;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.triangle {
+  -webkit-clip-path: polygon(50% 0, 0 100%, 100% 100%);
+          clip-path: polygon(50% 0, 0 100%, 100% 100%);
+}
+
+.cross {
+  background-color: transparent;
+  position: relative;
+}
+
+.cross::before, .cross::after {
+  content: "";
+  position: absolute;
+  background-color: #511b20;
+}
+
+.cross::before {
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: calc((var(--width) / 2));
+  height: 100%;
+}
+
+.cross::after {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  height: calc((var(--width) / 2) - 6.25%);
+  width: 115%;
+}
+
+.star {
+  background-color: transparent;
+  display: block;
+}
+
+.small {
+  --width: 10px;
+}
+/*# sourceMappingURL=index.module.css.map */

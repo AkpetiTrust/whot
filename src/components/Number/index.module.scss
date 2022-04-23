@@ -1,0 +1,12 @@
+.number {
+  padding-left: 10px;
+  p {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+}
+
+.reverse {
+  align-items: flex-end;
+  transform: rotate(180deg);
+}

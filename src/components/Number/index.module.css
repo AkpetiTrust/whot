@@ -1,0 +1,17 @@
+.number {
+  padding-left: 10px;
+}
+
+.number p {
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.reverse {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+/*# sourceMappingURL=index.module.css.map */

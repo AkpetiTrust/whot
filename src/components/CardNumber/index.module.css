@@ -1,0 +1,15 @@
+.number {
+  --width: 30px;
+  font-weight: 800;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  width: var(--width);
+  height: var(--width);
+  line-height: var(--width);
+  text-align: center;
+  color: #000;
+  background-color: #e9c256;
+  margin-top: 20px;
+}
+/*# sourceMappingURL=index.module.css.map */
