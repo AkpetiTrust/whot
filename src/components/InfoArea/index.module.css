@@ -1,0 +1,21 @@
+.info_area {
+  position: fixed;
+  left: 120px;
+  top: 100px;
+}
+
+@media screen and (max-width: 1180px) {
+  .info_area {
+    top: 220px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .info_area {
+    top: unset;
+    left: unset;
+    bottom: 30px;
+    right: -55px;
+  }
+}
+/*# sourceMappingURL=index.module.css.map */

@@ -1,0 +1,46 @@
+.text {
+  width: 200px;
+  min-height: 90px;
+  padding: 10px;
+  background-color: #fff;
+  color: #000;
+  position: relative;
+  left: -70px;
+  margin-bottom: 20px;
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s, -webkit-transform 0.3s;
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.text.hidden {
+  opacity: 0;
+  -webkit-transform: translateY(10px);
+          transform: translateY(10px);
+}
+
+.text::before {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: #fff;
+}
+
+@media screen and (max-width: 900px) {
+  .text {
+    width: 150px;
+    min-height: 70px;
+    left: -80px;
+    font-size: 14px;
+  }
+}
+/*# sourceMappingURL=index.module.css.map */

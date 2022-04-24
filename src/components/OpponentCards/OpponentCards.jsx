@@ -1,6 +1,8 @@
 import React from "react";
 import CardComponent from "../CardComponent/CardComponent";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import useMarket from "../../utils/hooks/useMarket";
+import { useEffect } from "react";
 
 function OpponentCards() {
   const [opponentCards, whoIsToPlay, activeCard] = useSelector((state) => [
@@ -8,6 +10,10 @@ function OpponentCards() {
     state.whoIsToPlay,
     state.activeCard,
   ]);
+
+  const dispatch = useDispatch();
+
+  const { goToMarket } = useMarket();
 
   let cardArray = [];
   let isPlayed = false;
@@ -37,6 +43,22 @@ function OpponentCards() {
       />
     );
   });
+
+  useEffect(() => {
+    if (isPlayedSet === false && whoIsToPlay === "opponent") {
+      setTimeout(() => {
+        goToMarket("opponent");
+        dispatch({
+          type: "WHO_IS_TO_PLAY",
+          payload: "user",
+        });
+        dispatch({
+          type: "INFO_TEXT",
+          payload: "It's your turn to make a move now",
+        });
+      }, 500);
+    }
+  }, [goToMarket]);
 
   return (
     <div className="scroll-container">

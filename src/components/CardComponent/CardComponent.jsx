@@ -61,9 +61,20 @@ function CardComponent({
         type: "ACTIVE_CARD",
         payload: { shape, number },
       });
+      if (number === 1 || number === 8) {
+        dispatch({
+          type: "INFO_TEXT",
+          payload: "You played a suspension card so play again",
+        });
+        return;
+      }
       dispatch({
         type: "WHO_IS_TO_PLAY",
         payload: "opponent",
+      });
+      dispatch({
+        type: "INFO_TEXT",
+        payload: "The computer is calculating it's moves",
       });
     } else if (player === "opponent") {
       setIsShownState(true);
@@ -86,9 +97,16 @@ function CardComponent({
           type: "ACTIVE_CARD",
           payload: { shape, number },
         });
+        if (number === 1 || number === 8) {
+          return;
+        }
         dispatch({
           type: "WHO_IS_TO_PLAY",
           payload: "user",
+        });
+        dispatch({
+          type: "INFO_TEXT",
+          payload: "It's your turn to make a move now",
         });
       }, delay);
     }

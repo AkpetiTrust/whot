@@ -14,6 +14,8 @@ const store = createStore(
     activeCard,
     cardToMove: null,
     whoIsToPlay: "user",
+    infoText: "It's your turn to make a move now",
+    infoShown: true,
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

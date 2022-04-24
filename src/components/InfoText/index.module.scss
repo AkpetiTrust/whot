@@ -1,0 +1,39 @@
+.text {
+  width: 200px;
+  min-height: 90px;
+  padding: 10px;
+  background-color: #fff;
+  color: #000;
+  position: relative;
+  left: -70px;
+  margin-bottom: 20px;
+  transition: transform 0.3s, opacity 0.3s;
+  opacity: 1;
+  transform: translateY(0);
+
+  &.hidden {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: #fff;
+  }
+}
+
+@media screen and(max-width:900px) {
+  .text {
+    width: 150px;
+    min-height: 70px;
+    left: -80px;
+    font-size: 14px;
+  }
+}
