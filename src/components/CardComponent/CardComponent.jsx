@@ -4,7 +4,9 @@ import Number from "../Number/Number";
 import Shape from "../Shape/Shape";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Flipped, spring } from "react-flip-toolkit";
+import { Flipped } from "react-flip-toolkit";
+import useMarket from "../../utils/hooks/useMarket";
+import goToMarket from "../../utils/hooks/goToMarket";
 
 function CardComponent({
   shape,
@@ -32,6 +34,7 @@ function CardComponent({
     state.opponentCards,
   ]);
   const dispatch = useDispatch();
+  const { market } = useMarket();
 
   useEffect(() => {
     setTimeout(() => {
@@ -54,10 +57,6 @@ function CardComponent({
         ),
       });
       dispatch({
-        type: "USED_CARDS",
-        payload: [...usedCards, { shape, number }],
-      });
-      dispatch({
         type: "ACTIVE_CARD",
         payload: { shape, number },
       });
@@ -68,6 +67,47 @@ function CardComponent({
         });
         return;
       }
+
+      // Pick 2
+      if (number === 2) {
+        goToMarket(
+          "opponent",
+          {
+            market,
+            dispatch,
+            usedCards,
+            userCards,
+            opponentCards,
+          },
+          2
+        );
+        dispatch({
+          type: "INFO_TEXT",
+          payload: "You played a pick 2 so play again",
+        });
+        return;
+      }
+
+      // Pick 3
+      if (number === 5) {
+        goToMarket(
+          "opponent",
+          {
+            market,
+            dispatch,
+            usedCards,
+            userCards,
+            opponentCards,
+          },
+          3
+        );
+        dispatch({
+          type: "INFO_TEXT",
+          payload: "You played a pick 3 so play again",
+        });
+        return;
+      }
+
       dispatch({
         type: "WHO_IS_TO_PLAY",
         payload: "opponent",
@@ -88,10 +128,6 @@ function CardComponent({
           payload: [...opponentCards].filter(
             (card) => !(card.number === number && card.shape === shape)
           ),
-        });
-        dispatch({
-          type: "USED_CARDS",
-          payload: [...usedCards, { shape, number }],
         });
         dispatch({
           type: "ACTIVE_CARD",

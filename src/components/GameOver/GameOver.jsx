@@ -3,9 +3,11 @@ import style from "./index.module.css";
 import useIsGameOver from "../../utils/hooks/useIsGameOver";
 import confetti from "canvas-confetti";
 import confettiAnimation from "../../utils/functions/confettiAnimation";
+import { useEffect, useState } from "react";
 
 function GameOver() {
   const isGameOver = useIsGameOver();
+  const [animationHasRun, setAnimationHasRun] = useState(false);
 
   const title = isGameOver().winner === "user" ? "YOU WIN" : "YOU LOST😔";
   const subtitle =
@@ -13,9 +15,12 @@ function GameOver() {
       ? "Congrats! You won this round."
       : "Sorry, just try again.";
 
-  if (isGameOver().winner === "user") {
-    confettiAnimation(confetti);
-  }
+  useEffect(() => {
+    if (isGameOver().winner === "user" && !animationHasRun) {
+      confettiAnimation(confetti);
+      setAnimationHasRun(true);
+    }
+  }, [isGameOver]);
 
   return (
     <div

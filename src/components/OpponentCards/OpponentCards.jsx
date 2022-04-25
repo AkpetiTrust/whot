@@ -3,17 +3,21 @@ import CardComponent from "../CardComponent/CardComponent";
 import { useSelector, useDispatch } from "react-redux";
 import useMarket from "../../utils/hooks/useMarket";
 import { useEffect } from "react";
+import goToMarket from "../../utils/hooks/goToMarket";
 
 function OpponentCards() {
-  const [opponentCards, whoIsToPlay, activeCard] = useSelector((state) => [
-    state.opponentCards,
-    state.whoIsToPlay,
-    state.activeCard,
-  ]);
+  const [opponentCards, whoIsToPlay, activeCard, usedCards, userCards] =
+    useSelector((state) => [
+      state.opponentCards,
+      state.whoIsToPlay,
+      state.activeCard,
+      state.usedCards,
+      state.userCards,
+    ]);
 
   const dispatch = useDispatch();
 
-  const { goToMarket } = useMarket();
+  const { market } = useMarket();
 
   let cardArray = [];
   let isPlayed = false;
@@ -46,19 +50,23 @@ function OpponentCards() {
 
   useEffect(() => {
     if (isPlayedSet === false && whoIsToPlay === "opponent") {
-      setTimeout(() => {
-        goToMarket("opponent");
-        dispatch({
-          type: "WHO_IS_TO_PLAY",
-          payload: "user",
-        });
-        dispatch({
-          type: "INFO_TEXT",
-          payload: "It's your turn to make a move now",
-        });
-      }, 500);
+      goToMarket("opponent", {
+        market,
+        dispatch,
+        usedCards,
+        userCards,
+        opponentCards,
+      });
+      dispatch({
+        type: "WHO_IS_TO_PLAY",
+        payload: "user",
+      });
+      dispatch({
+        type: "INFO_TEXT",
+        payload: "It's your turn to make a move now",
+      });
     }
-  }, [goToMarket]);
+  }, [whoIsToPlay]);
 
   return (
     <div className="scroll-container">
