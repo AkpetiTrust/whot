@@ -9,13 +9,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800;900&display=swap");
 
 body {
-  height: 100vh;
-  overflow: hidden;
   background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0)),
     url(./assets/background.jpeg);
   padding: 10px 40px;
   padding-top: 60px;
   font-family: "Poppins", sans-serif;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
 }
 
 .scroll-container {
@@ -44,5 +47,16 @@ body {
       background-color: #c1c1c1;
       border-radius: 15px;
     }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  body {
+    padding: 10px 30px;
+    padding-top: 30px;
+  }
+
+  .scroll-container .grid {
+    padding-bottom: 7px;
   }
 }

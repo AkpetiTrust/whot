@@ -55,3 +55,18 @@
     }
   }
 }
+
+@media screen and (max-width: 650px) {
+  .card {
+    --width: 80px;
+    --height: 105px;
+    .front {
+      padding: 6px 0;
+      border-radius: 3px;
+    }
+    .back {
+      font-size: 12px;
+      border-radius: 3px;
+    }
+  }
+}

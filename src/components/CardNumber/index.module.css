@@ -12,4 +12,12 @@
   background-color: #e9c256;
   margin-top: 15px;
 }
+
+@media screen and (max-width: 650px) {
+  .number {
+    --width: 20px;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+}
 /*# sourceMappingURL=index.module.css.map */

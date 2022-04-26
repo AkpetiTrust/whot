@@ -18,4 +18,11 @@
     right: -55px;
   }
 }
+
+@media screen and (max-width: 650px) {
+  .info_area {
+    bottom: 15px;
+    right: -60px;
+  }
+}
 /*# sourceMappingURL=index.module.css.map */

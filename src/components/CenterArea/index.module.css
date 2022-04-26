@@ -6,4 +6,10 @@
   grid-auto-flow: column;
   place-items: center;
 }
+
+@media screen and (max-width: 650px) {
+  .center_area {
+    margin: 30px auto;
+  }
+}
 /*# sourceMappingURL=index.module.css.map */

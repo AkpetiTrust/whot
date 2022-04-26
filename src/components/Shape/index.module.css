@@ -51,7 +51,16 @@
   display: block;
 }
 
-.small {
-  --width: 8px;
+.shape.small {
+  --width: 7px;
+}
+
+@media screen and (max-width: 650px) {
+  .shape {
+    --width: 40px;
+  }
+  .shape:not(.small) {
+    margin: 4px auto;
+  }
 }
 /*# sourceMappingURL=index.module.css.map */

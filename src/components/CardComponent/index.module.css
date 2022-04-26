@@ -73,4 +73,19 @@
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
+
+@media screen and (max-width: 650px) {
+  .card {
+    --width: 80px;
+    --height: 105px;
+  }
+  .card .front {
+    padding: 6px 0;
+    border-radius: 3px;
+  }
+  .card .back {
+    font-size: 12px;
+    border-radius: 3px;
+  }
+}
 /*# sourceMappingURL=index.module.css.map */

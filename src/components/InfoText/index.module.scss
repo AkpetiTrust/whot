@@ -37,3 +37,10 @@
     font-size: 14px;
   }
 }
+
+@media screen and (max-width: 650px) {
+  .text {
+    padding: 6px;
+    min-height: 60px;
+  }
+}
