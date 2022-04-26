@@ -24,6 +24,22 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+
+    <!-- OG tags -->
+    <meta property="og:title" content="Whot" />
+    <meta
+      property="og:description"
+      content="A game of Naija Whot built with ReactJS"
+    />
+    <meta
+      property="og:image"
+      content="https://whot.trust-akpeti.com/logo.jpg"
+      itemprop="image"
+    />
+
+    <meta property="og:image:width" content="222" />
+    <meta property="og:image:height" content="222" />
+
     <title>Whot</title>
   </head>
   <body>
@@ -39,5 +55,18 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <!-- SERVICE WORKER -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("service-worker.js")
+          .then(function (reg) {
+            // console.log("Yes, it did.");
+          })
+          .catch(function (err) {
+            // console.log("No it didn't. This happened:", err);
+          });
+      }
+    </script>
   </body>
 </html>
