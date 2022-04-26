@@ -29,7 +29,8 @@
   &::before {
     left: 50%;
     transform: translateX(-50%);
-    width: calc((var(--width) / 2));
+    width: calc(((var(--width) / 2) - 0px));
+    // Adding the '- 0px' suddenly removed a bug
     height: 100%;
   }
 

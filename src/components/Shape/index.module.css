@@ -33,7 +33,7 @@
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  width: calc((var(--width) / 2));
+  width: calc(((var(--width) / 2) - 0px));
   height: 100%;
 }
 
