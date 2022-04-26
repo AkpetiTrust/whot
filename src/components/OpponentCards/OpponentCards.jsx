@@ -4,19 +4,38 @@ import { useSelector, useDispatch } from "react-redux";
 import useMarket from "../../utils/hooks/useMarket";
 import { useEffect } from "react";
 import goToMarket from "../../utils/hooks/goToMarket";
+import useIsGameOver from "../../utils/hooks/useIsGameOver";
 
 function OpponentCards() {
-  const [opponentCards, whoIsToPlay, activeCard, usedCards, userCards] =
-    useSelector((state) => [
-      state.opponentCards,
-      state.whoIsToPlay,
-      state.activeCard,
-      state.usedCards,
-      state.userCards,
-    ]);
+  const [
+    opponentCards,
+    whoIsToPlay,
+    activeCard,
+    usedCards,
+    userCards,
+    shouldDelay,
+  ] = useSelector((state) => [
+    state.opponentCards,
+    state.whoIsToPlay,
+    state.activeCard,
+    state.usedCards,
+    state.userCards,
+    state.shouldDelay,
+  ]);
 
   const dispatch = useDispatch();
   const { market } = useMarket();
+
+  const marketConfig = {
+    market,
+    dispatch,
+    usedCards,
+    userCards,
+    opponentCards,
+    activeCard,
+  };
+
+  const isGameOver = useIsGameOver();
 
   let cardArray = [];
   let isPlayed = false;
@@ -40,7 +59,7 @@ function OpponentCards() {
         shape={card.shape}
         number={card.number}
         isMine={false}
-        isShown={true}
+        isShown={false}
         key={card.shape + card.number}
         isPlayed={isPlayed}
       />
@@ -49,51 +68,23 @@ function OpponentCards() {
 
   useEffect(() => {
     if (isPlayedSet === false && whoIsToPlay === "opponent") {
-      const attackNumbers = [2, 5, 14];
+      if (isGameOver().answer) return;
 
-      if (attackNumbers.includes(activeCard.number)) {
-        let delay = 1200;
-
-        if (activeCard.number === 14) {
-          delay = 500;
-        }
-
-        setTimeout(() => {
-          goToMarket("opponent", {
-            market,
-            dispatch,
-            usedCards,
-            userCards,
-            opponentCards,
-          });
-          dispatch({
-            type: "WHO_IS_TO_PLAY",
-            payload: "user",
-          });
-          dispatch({
-            type: "INFO_TEXT",
-            payload: "It's your turn to make a move now",
-          });
-        }, delay);
-
-        return;
+      let delay = 500;
+      if (shouldDelay.shouldDelay) {
+        delay = shouldDelay.time;
       }
-
-      goToMarket("opponent", {
-        market,
-        dispatch,
-        usedCards,
-        userCards,
-        opponentCards,
-      });
-      dispatch({
-        type: "WHO_IS_TO_PLAY",
-        payload: "user",
-      });
-      dispatch({
-        type: "INFO_TEXT",
-        payload: "It's your turn to make a move now",
-      });
+      setTimeout(() => {
+        goToMarket("opponent", marketConfig);
+        dispatch({
+          type: "WHO_IS_TO_PLAY",
+          payload: "user",
+        });
+        dispatch({
+          type: "INFO_TEXT",
+          payload: "It's your turn to make a move now",
+        });
+      }, delay);
     }
   }, [whoIsToPlay, userCards, opponentCards]);
 

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Flipped } from "react-flip-toolkit";
 import useMarket from "../../utils/hooks/useMarket";
 import goToMarket from "../../utils/hooks/goToMarket";
+import useIsGameOver from "../../utils/hooks/useIsGameOver";
 
 function CardComponent({
   shape,
@@ -25,6 +26,7 @@ function CardComponent({
     userCards,
     usedCards,
     opponentCards,
+    shouldDelay,
   ] = useSelector((state) => [
     state.whoIsToPlay,
     state.cardToMove,
@@ -32,9 +34,11 @@ function CardComponent({
     state.userCards,
     state.usedCards,
     state.opponentCards,
+    state.shouldDelay,
   ]);
   const dispatch = useDispatch();
   const { market } = useMarket();
+  const isGameOver = useIsGameOver();
 
   const marketConfig = {
     market,
@@ -42,26 +46,24 @@ function CardComponent({
     usedCards,
     userCards,
     opponentCards,
+    activeCard,
   };
 
   let delay = 500;
 
   useEffect(() => {
-    const attackNumbers = [2, 5, 14];
-
-    if (attackNumbers.includes(activeCard.number)) {
-      delay = 1500;
-    }
-
-    if (activeCard.number === 14) {
-      delay = 500;
-    }
-
     if (!isPlayed) return;
+
+    if (isGameOver().answer) return;
+
+    let playDelay = delay;
+    if (shouldDelay.shouldDelay) {
+      playDelay = shouldDelay.time;
+    }
 
     setTimeout(() => {
       playCard("opponent");
-    }, delay);
+    }, playDelay);
   }, [activeCard, userCards, opponentCards]);
 
   const playCard = (player) => {
@@ -126,6 +128,14 @@ function CardComponent({
         type: "INFO_TEXT",
         payload: "The computer is calculating it's moves",
       });
+
+      dispatch({
+        type: "SHOULD_DELAY",
+        payload: {
+          shouldDelay: false,
+          time: null,
+        },
+      });
     } else if (player === "opponent") {
       setIsShownState(true);
       setTimeout(() => {
@@ -154,6 +164,13 @@ function CardComponent({
             type: "INFO_TEXT",
             payload: "You were made to pick 2",
           });
+          dispatch({
+            type: "SHOULD_DELAY",
+            payload: {
+              shouldDelay: true,
+              time: 1500,
+            },
+          });
           return;
         }
 
@@ -163,6 +180,13 @@ function CardComponent({
           dispatch({
             type: "INFO_TEXT",
             payload: "You were made to pick 3",
+          });
+          dispatch({
+            type: "SHOULD_DELAY",
+            payload: {
+              shouldDelay: true,
+              time: 1500,
+            },
           });
           return;
         }

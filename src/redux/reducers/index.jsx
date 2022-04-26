@@ -9,6 +9,7 @@ import cardToMoveReducer from "./cardToMoveReducer";
 import whoIsToPlayReducer from "./whoIsToPlayReducer";
 import infoShownReducer from "./infoShownReducer";
 import infoTextReducer from "./infoTextReducer";
+import shouldDelayReducer from "./shouldDelayReducer";
 
 const combinedReducer = combineReducers({
   deck: deckReducer,
@@ -20,6 +21,7 @@ const combinedReducer = combineReducers({
   whoIsToPlay: whoIsToPlayReducer,
   infoText: infoTextReducer,
   infoShown: infoShownReducer,
+  shouldDelay: shouldDelayReducer,
 });
 
 export default combinedReducer;
