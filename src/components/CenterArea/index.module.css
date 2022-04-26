@@ -1,5 +1,9 @@
 .center_area {
   max-width: 500px;
   margin: 50px auto;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  place-items: center;
 }
 /*# sourceMappingURL=index.module.css.map */

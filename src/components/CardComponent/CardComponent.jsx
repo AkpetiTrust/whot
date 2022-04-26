@@ -15,9 +15,9 @@ function CardComponent({
   isShown,
   isActiveCard,
   isPlayed,
+  isMarketCard,
 }) {
   const [isShownState, setIsShownState] = useState(isShown);
-  const [delay, setDelay] = useState(500);
   const [
     whoIsToPlay,
     cardToMove,
@@ -36,13 +36,33 @@ function CardComponent({
   const dispatch = useDispatch();
   const { market } = useMarket();
 
+  const marketConfig = {
+    market,
+    dispatch,
+    usedCards,
+    userCards,
+    opponentCards,
+  };
+
+  let delay = 500;
+
   useEffect(() => {
+    const attackNumbers = [2, 5, 14];
+
+    if (attackNumbers.includes(activeCard.number)) {
+      delay = 1500;
+    }
+
+    if (activeCard.number === 14) {
+      delay = 500;
+    }
+
+    if (!isPlayed) return;
+
     setTimeout(() => {
-      if (isPlayed) {
-        playCard("opponent");
-      }
+      playCard("opponent");
     }, delay);
-  });
+  }, [activeCard, userCards, opponentCards]);
 
   const playCard = (player) => {
     if (player === "user") {
@@ -70,17 +90,7 @@ function CardComponent({
 
       // Pick 2
       if (number === 2) {
-        goToMarket(
-          "opponent",
-          {
-            market,
-            dispatch,
-            usedCards,
-            userCards,
-            opponentCards,
-          },
-          2
-        );
+        goToMarket("opponent", marketConfig, 2);
         dispatch({
           type: "INFO_TEXT",
           payload: "You played a pick 2 so play again",
@@ -90,20 +100,20 @@ function CardComponent({
 
       // Pick 3
       if (number === 5) {
-        goToMarket(
-          "opponent",
-          {
-            market,
-            dispatch,
-            usedCards,
-            userCards,
-            opponentCards,
-          },
-          3
-        );
+        goToMarket("opponent", marketConfig, 3);
         dispatch({
           type: "INFO_TEXT",
           payload: "You played a pick 3 so play again",
+        });
+        return;
+      }
+
+      // General Market
+      if (number === 14) {
+        goToMarket("opponent", marketConfig, 1);
+        dispatch({
+          type: "INFO_TEXT",
+          payload: "You played a general market so play again",
         });
         return;
       }
@@ -136,6 +146,37 @@ function CardComponent({
         if (number === 1 || number === 8) {
           return;
         }
+
+        // Pick 2
+        if (number === 2) {
+          goToMarket("user", marketConfig, 2);
+          dispatch({
+            type: "INFO_TEXT",
+            payload: "You were made to pick 2",
+          });
+          return;
+        }
+
+        // Pick 3
+        if (number === 5) {
+          goToMarket("user", marketConfig, 3);
+          dispatch({
+            type: "INFO_TEXT",
+            payload: "You were made to pick 3",
+          });
+          return;
+        }
+
+        // General Market
+        if (number === 14) {
+          goToMarket("user", marketConfig, 1);
+          dispatch({
+            type: "INFO_TEXT",
+            payload: "General market",
+          });
+          return;
+        }
+
         dispatch({
           type: "WHO_IS_TO_PLAY",
           payload: "user",
@@ -149,6 +190,19 @@ function CardComponent({
   };
 
   const handleClick = () => {
+    if (isMarketCard && whoIsToPlay === "user") {
+      goToMarket("user", marketConfig, 1);
+      dispatch({
+        type: "WHO_IS_TO_PLAY",
+        payload: "opponent",
+      });
+      dispatch({
+        type: "INFO_TEXT",
+        payload: "The computer is calculating it's moves",
+      });
+      return;
+    }
+
     if (!isMine) return;
 
     if (

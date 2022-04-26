@@ -16,7 +16,6 @@ function OpponentCards() {
     ]);
 
   const dispatch = useDispatch();
-
   const { market } = useMarket();
 
   let cardArray = [];
@@ -41,7 +40,7 @@ function OpponentCards() {
         shape={card.shape}
         number={card.number}
         isMine={false}
-        isShown={false}
+        isShown={true}
         key={card.shape + card.number}
         isPlayed={isPlayed}
       />
@@ -50,6 +49,36 @@ function OpponentCards() {
 
   useEffect(() => {
     if (isPlayedSet === false && whoIsToPlay === "opponent") {
+      const attackNumbers = [2, 5, 14];
+
+      if (attackNumbers.includes(activeCard.number)) {
+        let delay = 1200;
+
+        if (activeCard.number === 14) {
+          delay = 500;
+        }
+
+        setTimeout(() => {
+          goToMarket("opponent", {
+            market,
+            dispatch,
+            usedCards,
+            userCards,
+            opponentCards,
+          });
+          dispatch({
+            type: "WHO_IS_TO_PLAY",
+            payload: "user",
+          });
+          dispatch({
+            type: "INFO_TEXT",
+            payload: "It's your turn to make a move now",
+          });
+        }, delay);
+
+        return;
+      }
+
       goToMarket("opponent", {
         market,
         dispatch,
@@ -66,7 +95,7 @@ function OpponentCards() {
         payload: "It's your turn to make a move now",
       });
     }
-  }, [whoIsToPlay]);
+  }, [whoIsToPlay, userCards, opponentCards]);
 
   return (
     <div className="scroll-container">
