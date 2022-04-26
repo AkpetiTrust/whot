@@ -1,0 +1,50 @@
+.preloader {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.6)
+    ),
+    url("../../assets/background.jpeg");
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: disappear 1s 1.8s 1 forwards;
+  z-index: 10;
+
+  & > p {
+    font-weight: 700;
+    text-align: center;
+    margin-top: 50px;
+  }
+}
+
+.animation_area {
+  transform: scale(1.2) translateX(0);
+  animation: move 1.2s ease-in-out 8 alternate;
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(-100%) scale(1.2);
+  }
+  50% {
+    transform: translateX(100%) scale(1.2);
+  }
+  100% {
+    transform: translateX(-100%) scale(1.2);
+  }
+}
+
+@keyframes disappear {
+  to {
+    opacity: 0;
+    transform: translateY(110%);
+  }
+}

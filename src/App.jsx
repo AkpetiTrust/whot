@@ -4,6 +4,7 @@ import {
   CenterArea,
   InfoArea,
   GameOver,
+  Preloader,
 } from "./components";
 import { Flipper } from "react-flip-toolkit";
 import { useSelector } from "react-redux";
@@ -22,6 +23,7 @@ function App() {
         <UserCards />
         <InfoArea />
         <GameOver />
+        <Preloader />
       </div>
     </Flipper>
   );
