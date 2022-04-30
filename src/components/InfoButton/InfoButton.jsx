@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import style from "./index.module.css";
+import { toggleInfoShown } from "../../redux/actions";
 
 function InfoButton() {
   const dispatch = useDispatch();
@@ -8,7 +9,7 @@ function InfoButton() {
     <button
       className={style.button}
       onClick={() => {
-        dispatch({ type: "INFO_SHOWN" });
+        dispatch(toggleInfoShown());
       }}
     >
       <svg

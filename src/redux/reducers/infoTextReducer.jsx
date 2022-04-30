@@ -1,5 +1,5 @@
 const infoTextReducer = (state = "", action) => {
-  if (action.type === "INFO_TEXT") {
+  if (action.type === "SET_INFO_TEXT") {
     return action.payload;
   }
 

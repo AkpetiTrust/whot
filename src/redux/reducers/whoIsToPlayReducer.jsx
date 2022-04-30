@@ -1,5 +1,5 @@
 const whoIsToPlayReducer = (state = "user", action) => {
-  if (action.type === "WHO_IS_TO_PLAY") {
+  if (action.type === "SET_WHO_IS_TO_PLAY") {
     return action.payload;
   }
 

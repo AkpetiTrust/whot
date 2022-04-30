@@ -1,5 +1,5 @@
 const activeCardReducer = (state = [], action) => {
-  if (action.type === "ACTIVE_CARD") {
+  if (action.type === "UPDATE_ACTIVE_CARD") {
     return action.payload;
   }
 

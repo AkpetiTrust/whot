@@ -1,5 +1,5 @@
 const infoShownReducer = (state = true, action) => {
-  if (action.type === "INFO_SHOWN") {
+  if (action.type === "TOGGLE_INFO_SHOWN") {
     return !state;
   }
 

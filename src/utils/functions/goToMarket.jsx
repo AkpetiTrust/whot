@@ -1,4 +1,5 @@
-import randomCard from "../functions/randomCard";
+import randomCard from "./randomCard";
+import { addUserCard, addOpponentCard } from "../../redux/actions";
 
 const goToMarket = (
   player,
@@ -11,20 +12,10 @@ const goToMarket = (
   const card = randomCard(
     market.filter((card) => !setOfUsedCards.includes(card))
   );
-  dispatch({
-    type: "USED_CARDS",
-    payload: [...usedCards, ...setOfUsedCards, card],
-  });
   if (player === "user") {
-    dispatch({
-      type: "USER_CARDS",
-      payload: [card, ...setOfUsedCards, ...userCards],
-    });
+    dispatch(addUserCard(card));
   } else if (player === "opponent") {
-    dispatch({
-      type: "OPPONENT_CARDS",
-      payload: [card, ...setOfUsedCards, ...opponentCards],
-    });
+    dispatch(addOpponentCard(card));
   }
 
   setOfUsedCards.unshift(card);

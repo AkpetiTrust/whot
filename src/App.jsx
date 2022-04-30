@@ -10,13 +10,14 @@ import { Flipper } from "react-flip-toolkit";
 import { useSelector } from "react-redux";
 
 function App() {
-  const [cardToMove, usedCards] = useSelector((state) => [
-    state.cardToMove,
-    state.usedCards,
+  const [activeCard, userCards, opponentCards] = useSelector((state) => [
+    state.activeCard,
+    state.userCards,
+    state.opponentCards,
   ]);
 
   return (
-    <Flipper flipKey={[cardToMove, ...usedCards]}>
+    <Flipper flipKey={[activeCard, ...userCards, ...opponentCards]}>
       <div className="App">
         <OpponentCards />
         <CenterArea />

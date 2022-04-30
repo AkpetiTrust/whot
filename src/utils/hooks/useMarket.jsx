@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { refreshUsedCards } from "../../redux/actions";
 
 function useMarket() {
   const [deck, usedCards, userCards, opponentCards, activeCard] = useSelector(
@@ -16,10 +17,7 @@ function useMarket() {
   const market = deck.filter((card) => !usedCards.includes(card));
   if (market.length <= 10) {
     // Refresh market
-    dispatch({
-      type: "USED_CARDS",
-      payload: [...userCards, ...opponentCards, activeCard],
-    });
+    dispatch(refreshUsedCards([...userCards, ...opponentCards, activeCard]));
   }
 
   return { market };

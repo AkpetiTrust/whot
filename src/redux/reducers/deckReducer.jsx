@@ -1,4 +1,4 @@
-const deckReducer = (state = [], action) => {
+const deckReducer = (state = [], _) => {
   return state;
 };
 
