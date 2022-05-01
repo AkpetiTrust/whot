@@ -8,13 +8,9 @@ import { Flipped } from "react-flip-toolkit";
 import useMarket from "../../utils/hooks/useMarket";
 import goToMarket from "../../utils/functions/goToMarket";
 import useIsGameOver from "../../utils/hooks/useIsGameOver";
-import {
-  removeUserCard,
-  removeOpponentCard,
-  setInfoText,
-  setWhoIsToPlay,
-  updateActiveCard,
-} from "../../redux/actions";
+import usePlayCardFunctions from "../../utils/hooks/usePlayCardFunctions";
+import { setInfoText, setWhoIsToPlay } from "../../redux/actions";
+import infoTextValues from "../../constants/infoTextValues";
 
 function CardComponent({
   shape,
@@ -44,96 +40,34 @@ function CardComponent({
     usedCards,
     userCards,
     opponentCards,
-    activeCard,
   };
 
   let delay = 500;
+
+  const [playUserCard, playOpponentCard] = usePlayCardFunctions({
+    shape,
+    number,
+    goToMarket,
+    marketConfig,
+    setIsShownState,
+    delay,
+  });
 
   useEffect(() => {
     if (!isPlayed) return;
 
     if (isGameOver().answer) return;
 
-    let playDelay = delay;
-
     setTimeout(() => {
-      playCard("opponent");
-    }, playDelay);
+      playOpponentCard();
+    }, delay);
   }, [activeCard, userCards, opponentCards]);
-
-  const playCard = (player) => {
-    if (player === "user") {
-      dispatch(removeUserCard({ shape, number }));
-      dispatch(updateActiveCard({ shape, number }));
-      if (number === 1 || number === 8) {
-        dispatch(setInfoText("You played a suspension card so play again"));
-        return;
-      }
-
-      // Pick 2
-      if (number === 2) {
-        goToMarket("opponent", marketConfig, 2);
-        dispatch(setInfoText("You played a pick 2 so play again"));
-        return;
-      }
-
-      // Pick 3
-      if (number === 5) {
-        goToMarket("opponent", marketConfig, 3);
-        dispatch(setInfoText("You played a pick 3 so play again"));
-        return;
-      }
-
-      // General Market
-      if (number === 14) {
-        goToMarket("opponent", marketConfig, 1);
-        dispatch(setInfoText("You played a general market so play again"));
-        return;
-      }
-
-      dispatch(setWhoIsToPlay("opponent"));
-      dispatch(setInfoText("The computer is calculating it's moves"));
-    } else if (player === "opponent") {
-      setIsShownState(true);
-      setTimeout(() => {
-        dispatch(removeOpponentCard({ shape, number }));
-        dispatch(updateActiveCard({ shape, number }));
-        if (number === 1 || number === 8) {
-          return;
-        }
-
-        // Pick 2
-        if (number === 2) {
-          goToMarket("user", marketConfig, 2);
-          dispatch(setInfoText("You were made to pick 2"));
-          return;
-        }
-
-        // Pick 3
-        if (number === 5) {
-          goToMarket("user", marketConfig, 3);
-          dispatch(setInfoText("You were made to pick 3"));
-          return;
-        }
-
-        // General Market
-        if (number === 14) {
-          goToMarket("user", marketConfig, 1);
-          dispatch(setInfoText("General market"));
-          return;
-        }
-
-        dispatch(setWhoIsToPlay("user"));
-        dispatch(setInfoText("It's your turn to make a move now"));
-      }, delay);
-    }
-  };
 
   const handleClick = () => {
     if (isMarketCard && whoIsToPlay === "user") {
       goToMarket("user", marketConfig, 1);
       dispatch(setWhoIsToPlay("opponent"));
-      dispatch(setInfoText("The computer is calculating it's moves"));
+      dispatch(setInfoText(infoTextValues.computersTurn));
       return;
     }
 
@@ -143,7 +77,7 @@ function CardComponent({
       whoIsToPlay === "user" &&
       (number === activeCard.number || shape === activeCard.shape)
     ) {
-      playCard("user");
+      playUserCard();
     }
   };
 

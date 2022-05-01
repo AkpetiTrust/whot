@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import goToMarket from "../../utils/functions/goToMarket";
 import useIsGameOver from "../../utils/hooks/useIsGameOver";
 import { setInfoText, setWhoIsToPlay } from "../../redux/actions";
+import infoTextValues from "../../constants/infoTextValues";
 
 function OpponentCards() {
   const [opponentCards, whoIsToPlay, activeCard, usedCards, userCards] =
@@ -68,7 +69,7 @@ function OpponentCards() {
       setTimeout(() => {
         goToMarket("opponent", marketConfig);
         dispatch(setWhoIsToPlay("user"));
-        dispatch(setInfoText("It's your turn to make a move now"));
+        dispatch(setInfoText(infoTextValues.usersTurn));
       }, delay);
     }
   }, [whoIsToPlay, userCards, opponentCards]);

@@ -3,7 +3,7 @@ import { addUserCard, addOpponentCard } from "../../redux/actions";
 
 const goToMarket = (
   player,
-  { market, dispatch, usedCards, opponentCards, userCards, activeCard },
+  { market, dispatch, usedCards, opponentCards, userCards },
   number = 1,
   setOfUsedCards = [],
   numberOfMoves = 0
