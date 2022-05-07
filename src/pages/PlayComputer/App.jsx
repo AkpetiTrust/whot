@@ -5,9 +5,10 @@ import {
   InfoArea,
   GameOver,
   Preloader,
-} from "./components";
+} from "../../components";
 import { Flipper } from "react-flip-toolkit";
 import { useSelector } from "react-redux";
+import "../../index.css";
 
 function App() {
   const [activeCard, userCards, opponentCards] = useSelector((state) => [

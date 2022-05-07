@@ -9,16 +9,16 @@
 }
 
 body {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.35)), to(rgba(0, 0, 0, 0.35))), url(./assets/background.jpeg);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(./assets/background.jpeg);
   font-family: "Poppins", sans-serif;
 }
 
-#root {
+.App {
   padding: 10px 40px;
   padding-top: 60px;
   height: 100vh;
   overflow: hidden;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.35)), to(rgba(0, 0, 0, 0.35))), url(./assets/background.jpeg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(./assets/background.jpeg);
 }
 
 .scroll-container {
@@ -50,7 +50,7 @@ body {
 }
 
 @media screen and (max-width: 650px) {
-  #root {
+  .App {
     padding: 10px 30px;
     padding-top: 30px;
   }

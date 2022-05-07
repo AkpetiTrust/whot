@@ -1,0 +1,133 @@
+.home {
+  padding: 35px;
+  max-width: 550px;
+  margin: 0 auto;
+  height: 100vh;
+  padding-top: 40px;
+  color: rgba(0, 0, 0, 0.7);
+
+  .title {
+    text-align: center;
+    margin-bottom: 15px;
+    span {
+      position: relative;
+      &::before {
+        content: "";
+        --inset: 4px;
+        position: absolute;
+        left: var(--inset);
+        right: var(--inset);
+        height: 5px;
+        bottom: 5px;
+        z-index: -1;
+        background-color: #d7a31a;
+      }
+    }
+  }
+  .subtitle {
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 40px;
+  }
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-column-gap: 40px;
+    align-items: center;
+
+    .image-container {
+      img {
+        max-width: 100%;
+      }
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      text-align: center;
+      align-items: center;
+
+      p {
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.66);
+      }
+
+      a {
+        all: unset;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 700;
+        width: 150px;
+        padding: 4px 0;
+        font-size: 0.8em;
+        letter-spacing: 0.04em;
+        border-radius: 7px;
+        &:first-child {
+          color: #fff;
+          background-color: #007380;
+        }
+
+        &:last-child {
+          color: #000000;
+          background-color: #dadad8;
+        }
+      }
+    }
+  }
+
+  .shapes {
+    div {
+      position: fixed;
+      z-index: -1;
+    }
+
+    svg {
+      max-width: 100%;
+    }
+
+    .circle {
+      top: -10px;
+      right: -20px;
+    }
+
+    .lines {
+      top: 120px;
+      left: -30px;
+    }
+  }
+}
+
+@media screen and(max-width:700px) {
+  .home {
+    .shapes {
+      .circle {
+        width: 100px;
+      }
+
+      .lines {
+        width: 120px;
+        top: 20px;
+      }
+    }
+  }
+}
+
+@media screen and(max-width:460px) {
+  .home {
+    padding-top: 25px;
+    .title {
+      font-size: 20px;
+    }
+
+    .subtitle {
+      font-size: 0.9em;
+    }
+
+    main .btn-group a {
+      font-size: 0.6em;
+      letter-spacing: 0.02em;
+      padding: 6px 0;
+      width: 100%;
+    }
+  }
+}

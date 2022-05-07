@@ -1,0 +1,139 @@
+.home {
+  padding: 35px;
+  max-width: 550px;
+  margin: 0 auto;
+  height: 100vh;
+  padding-top: 40px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.home .title {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.home .title span {
+  position: relative;
+}
+
+.home .title span::before {
+  content: "";
+  --inset: 4px;
+  position: absolute;
+  left: var(--inset);
+  right: var(--inset);
+  height: 5px;
+  bottom: 5px;
+  z-index: -1;
+  background-color: #d7a31a;
+}
+
+.home .subtitle {
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 40px;
+}
+
+.home main {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-column-gap: 40px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.home main .image-container img {
+  max-width: 100%;
+}
+
+.home main .btn-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 30px;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.home main .btn-group p {
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.66);
+}
+
+.home main .btn-group a {
+  all: unset;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 700;
+  width: 150px;
+  padding: 4px 0;
+  font-size: 0.8em;
+  letter-spacing: 0.04em;
+  border-radius: 7px;
+}
+
+.home main .btn-group a:first-child {
+  color: #fff;
+  background-color: #007380;
+}
+
+.home main .btn-group a:last-child {
+  color: #000000;
+  background-color: #dadad8;
+}
+
+.home .shapes div {
+  position: fixed;
+  z-index: -1;
+}
+
+.home .shapes svg {
+  max-width: 100%;
+}
+
+.home .shapes .circle {
+  top: -10px;
+  right: -20px;
+}
+
+.home .shapes .lines {
+  top: 120px;
+  left: -30px;
+}
+
+@media screen and (max-width: 700px) {
+  .home .shapes .circle {
+    width: 100px;
+  }
+  .home .shapes .lines {
+    width: 120px;
+    top: 20px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .home {
+    padding-top: 25px;
+  }
+  .home .title {
+    font-size: 20px;
+  }
+  .home .subtitle {
+    font-size: 0.9em;
+  }
+  .home main .btn-group a {
+    font-size: 0.6em;
+    letter-spacing: 0.02em;
+    padding: 6px 0;
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=home.css.map */
