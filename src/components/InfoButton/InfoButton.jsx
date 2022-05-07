@@ -7,6 +7,7 @@ function InfoButton() {
   const dispatch = useDispatch();
   return (
     <button
+      aria-label="Info"
       className={style.button}
       onClick={() => {
         dispatch(toggleInfoShown());

@@ -106,7 +106,7 @@ function Home() {
         <div className="btn-group">
           <Link to="/play-computer">PLAY COMPUTER</Link>
           <p>OR</p>
-          <Link to="/">PLAY FRIEND</Link>
+          <Link to="/copylink">PLAY FRIEND</Link>
         </div>
       </main>
       <Footer />

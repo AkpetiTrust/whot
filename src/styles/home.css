@@ -135,5 +135,8 @@
     padding: 6px 0;
     width: 100%;
   }
+  .home main .btn-group p {
+    font-size: 0.8em;
+  }
 }
 /*# sourceMappingURL=home.css.map */

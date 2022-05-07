@@ -123,11 +123,16 @@
       font-size: 0.9em;
     }
 
-    main .btn-group a {
-      font-size: 0.6em;
-      letter-spacing: 0.02em;
-      padding: 6px 0;
-      width: 100%;
+    main .btn-group {
+      a {
+        font-size: 0.6em;
+        letter-spacing: 0.02em;
+        padding: 6px 0;
+        width: 100%;
+      }
+      p {
+        font-size: 0.8em;
+      }
     }
   }
 }

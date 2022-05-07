@@ -1,0 +1,170 @@
+.copylink {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+
+  main {
+    grid-column: 2 / 3;
+    padding: 40px;
+    padding-top: 130px;
+    padding-bottom: 0;
+
+    .inner {
+      max-width: 450px;
+      margin: 0 auto;
+    }
+
+    p {
+      color: rgba($color: #000000, $alpha: 0.72);
+    }
+
+    .title {
+      text-align: center;
+      font-size: 1.1em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      span {
+        color: #9b343d;
+      }
+    }
+
+    .input-group {
+      display: flex;
+      margin: 35px 0;
+      font-size: 0.8em;
+      input {
+        all: unset;
+        width: 80%;
+        border-radius: 5px 0 0 5px;
+        background-color: #f0eeee;
+        padding: 6px 10px;
+        color: rgba(0, 0, 0, 0.47);
+        font-weight: 700;
+      }
+
+      button {
+        all: unset;
+        cursor: pointer;
+        padding: 0 10px;
+        text-align: center;
+        font-weight: 600;
+        color: #fff;
+        background-color: #1098f7;
+        border-radius: 0 5px 5px 0;
+      }
+    }
+
+    a {
+      all: unset;
+      cursor: pointer;
+      text-align: center;
+      display: inline-block;
+      width: 100%;
+      padding: 8px 0;
+      background-color: #007380;
+      border-radius: 5px;
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.8em;
+    }
+  }
+  aside {
+    grid-row: 1 / 2;
+    padding: 50px;
+    background-color: #fafcfe;
+    height: 100vh;
+    padding-top: 150px;
+
+    p {
+      color: rgba($color: #000000, $alpha: 0.42);
+      max-width: 500px;
+      margin: 0 auto;
+      em {
+        all: unset;
+        color: rgba($color: #000000, $alpha: 0.79);
+      }
+    }
+
+    svg {
+      max-width: 350px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 60px;
+    }
+  }
+
+  .shapes {
+    svg {
+      max-width: 100%;
+    }
+
+    .shape {
+      position: fixed;
+      right: 0;
+      transform: translateX(40%);
+      z-index: -1;
+      width: 250px;
+      --offset: -130px;
+      &:first-child {
+        top: var(--offset);
+      }
+      &:last-child {
+        bottom: var(--offset);
+      }
+    }
+  }
+}
+
+@media screen and(max-width:850px) {
+  .copylink {
+    display: block;
+
+    main {
+      padding-top: 40px;
+
+      .title {
+        font-size: 0.9em;
+      }
+
+      p {
+        font-size: 0.8em;
+      }
+
+      a,
+      .input-group {
+        font-size: 0.7em;
+      }
+
+      a {
+        padding: 6px 0;
+      }
+    }
+
+    aside {
+      background-color: transparent;
+      padding: 0;
+      height: unset;
+      p {
+        display: none;
+      }
+      svg {
+        width: 80%;
+        margin-top: 30px;
+      }
+    }
+
+    .shapes {
+      .shape {
+        width: 120px;
+        --offset: -140px;
+
+        &:last-child {
+          right: unset;
+          left: 0;
+          transform: translateX(-40%);
+        }
+      }
+    }
+  }
+}
