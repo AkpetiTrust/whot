@@ -1,17 +1,11 @@
 import { createStore } from "redux";
 import combinedReducer from "./reducers/playFriendCombinedReducer";
-import { io } from "socket.io-client";
-
-const socket = io("http://localhost:8080");
+import socket from "../socket/socket";
 
 const enhancedReducer = (state, action) => {
   if (action.type === "INITIALIZE_DECK") {
     return action.payload;
   }
-
-  let room_id =
-    window.location.href.split("/")[window.location.href.split("/").length - 1];
-  socket.emit("join_room", { room_id });
 
   let opponentAction = { ...action };
 
@@ -37,9 +31,6 @@ const enhancedReducer = (state, action) => {
   return combinedReducer(state, action);
 };
 
-const store = createStore(
-  enhancedReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const store = createStore(enhancedReducer);
 
 export default store;

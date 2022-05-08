@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import "../../index.css";
 import { useParams } from "react-router-dom";
-import { io } from "socket.io-client";
+import socket from "../../socket/socket";
 
 function App() {
   const { room_id } = useParams();
@@ -26,16 +26,17 @@ function App() {
 
   const dispatch = useDispatch();
 
+  const handleDispatch = (action) => {
+    action.isFromServer = true;
+    dispatch(action);
+  };
+
   useEffect(() => {
-    const socket = io("http://localhost:8080");
     socket.emit("join_room", { room_id });
-    socket.on("dispatch", (action) => {
-      action.isFromServer = true;
-      dispatch(action);
-    });
+    socket.on("dispatch", handleDispatch);
 
     return () => {
-      socket.disconnect();
+      socket.off("dispatch", handleDispatch);
     };
   }, []);
 
