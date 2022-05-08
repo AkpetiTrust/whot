@@ -59,7 +59,7 @@
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
-          .register("service-worker.js")
+          .register("%PUBLIC_URL%/service-worker.js")
           .then(function (reg) {
             // console.log("Yes, it did.");
           })

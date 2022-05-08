@@ -1,0 +1,40 @@
+import {
+  UserCards,
+  OpponentCards,
+  CenterArea,
+  InfoArea,
+  GameOver,
+  Preloader,
+} from "../../components";
+import { Flipper } from "react-flip-toolkit";
+import { useSelector } from "react-redux";
+import "../../index.css";
+
+function App() {
+  const [activeCard, userCards, opponentCards, stateHasBeenInitialized] =
+    useSelector((state) => [
+      state.activeCard,
+      state.userCards,
+      state.opponentCards,
+      state.stateHasBeenInitialized,
+    ]);
+
+  if (!stateHasBeenInitialized) {
+    return <></>;
+  }
+
+  return (
+    <Flipper flipKey={[activeCard, ...userCards, ...opponentCards]}>
+      <div className="App">
+        <OpponentCards />
+        <CenterArea />
+        <UserCards />
+        <InfoArea />
+        <GameOver />
+        <Preloader />
+      </div>
+    </Flipper>
+  );
+}
+
+export default App;
