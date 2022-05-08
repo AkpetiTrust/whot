@@ -1,5 +1,6 @@
 import UserCards from "./UserCards/UserCards";
 import OpponentCards from "./OpponentCards/OpponentCards";
+import ComputerCards from "./ComputerCards/ComputerCards";
 import CenterArea from "./CenterArea/CenterArea";
 import InfoArea from "./InfoArea/InfoArea";
 import GameOver from "./GameOver/GameOver";
@@ -9,6 +10,7 @@ import Footer from "./Footer/Footer";
 export {
   UserCards,
   OpponentCards,
+  ComputerCards,
   CenterArea,
   InfoArea,
   GameOver,

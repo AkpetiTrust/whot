@@ -1,6 +1,6 @@
 import {
   UserCards,
-  OpponentCards,
+  ComputerCards,
   CenterArea,
   InfoArea,
   GameOver,
@@ -20,7 +20,7 @@ function App() {
   return (
     <Flipper flipKey={[activeCard, ...userCards, ...opponentCards]}>
       <div className="App">
-        <OpponentCards />
+        <ComputerCards />
         <CenterArea />
         <UserCards />
         <InfoArea />

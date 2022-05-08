@@ -15,7 +15,13 @@ function useMarket() {
 
   const dispatch = useDispatch();
 
-  const market = deck.filter((card) => !usedCards.includes(card));
+  const market = deck.filter(
+    (card) =>
+      !usedCards.some(
+        (usedCard) =>
+          usedCard.shape === card.shape && usedCard.number === card.number
+      )
+  );
 
   useEffect(() => {
     if (market.length <= 10) {
