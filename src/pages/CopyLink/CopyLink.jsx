@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Footer } from "../../components";
 import "../../styles/copylink.css";
 
 function CopyLink() {
+  const [randomCode, setRandomCode] = useState("");
+  useEffect(() => {
+    const characters =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let generatedCode = "";
+    for (let i = 0; i < 4; i++) {
+      let randomIndex = Math.floor(Math.random() * characters.length);
+      generatedCode += characters[randomIndex];
+    }
+    setRandomCode(generatedCode);
+  }, []);
+
   return (
     <section className="copylink">
       <main>
@@ -17,12 +29,12 @@ function CopyLink() {
           <div className="input-group">
             <input
               type="text"
-              value={"https://whot.trust-akpeti.com/play-friend/3dsc"}
+              value={`https://whot.trust-akpeti.com/play-friend/${randomCode}`}
               readOnly
             />
             <button>COPY</button>
           </div>
-          <Link to="/">START GAME</Link>
+          <Link to={`/play-friend/${randomCode}`}>START GAME</Link>
         </section>
       </main>
       <aside>

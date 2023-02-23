@@ -25,7 +25,7 @@
 .text::before {
   content: "";
   position: absolute;
-  bottom: -20px;
+  bottom: -19.5px;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
