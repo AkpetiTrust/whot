@@ -1,5 +1,5 @@
-const Card = require("../classes/Card.jsx");
-const randomCard = require("./randomCard.jsx");
+const Card = require("../classes/Card");
+const randomCard = require("./randomCard");
 
 const initializeDeck = () => {
   // SET MY DECK

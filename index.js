@@ -1,4 +1,4 @@
-const initializeDeck = require("./utils/functions/initializeDeck.jsx");
+const initializeDeck = require("./utils/functions/initializeDeck");
 
 const { deck, userCards, usedCards, opponentCards, activeCard } =
   initializeDeck();
