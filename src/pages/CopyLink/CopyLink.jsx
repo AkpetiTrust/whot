@@ -5,6 +5,8 @@ import "../../styles/copylink.css";
 
 function CopyLink() {
   const [randomCode, setRandomCode] = useState("");
+  const [copied, setCopied] = useState(false);
+
   useEffect(() => {
     const characters =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -32,7 +34,21 @@ function CopyLink() {
               value={`https://whot.trust-akpeti.com/play-friend/${randomCode}`}
               readOnly
             />
-            <button>COPY</button>
+            <button
+              disabled={copied}
+              className={copied ? "copied" : ""}
+              onClick={() => {
+                navigator.clipboard
+                  .writeText(
+                    `https://whot.trust-akpeti.com/play-friend/${randomCode}`
+                  )
+                  .then(() => {
+                    setCopied(true);
+                  });
+              }}
+            >
+              {copied ? "COPIED" : "COPY"}
+            </button>
           </div>
           <Link to={`/play-friend/${randomCode}`}>START GAME</Link>
         </section>

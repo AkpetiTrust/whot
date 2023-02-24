@@ -11,6 +11,7 @@ import useIsGameOver from "../../utils/hooks/useIsGameOver";
 import usePlayCardFunctions from "../../utils/hooks/usePlayCardFunctions";
 import { setInfoText, setWhoIsToPlay } from "../../redux/actions";
 import infoTextValues from "../../constants/infoTextValues";
+import { useLocation } from "react-router-dom";
 
 function CardComponent({
   shape,
@@ -33,6 +34,13 @@ function CardComponent({
   const dispatch = useDispatch();
   const { market } = useMarket();
   const isGameOver = useIsGameOver();
+
+  const location = useLocation();
+
+  if (location.pathname.includes("play-friend")) {
+    infoTextValues.computersTurn =
+      "It's your opponent's turn to make a move now";
+  }
 
   const marketConfig = {
     market,

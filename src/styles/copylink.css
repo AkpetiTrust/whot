@@ -62,6 +62,16 @@
   color: #fff;
   background-color: #1098f7;
   border-radius: 0 5px 5px 0;
+  -webkit-transition: background-color 0.4s;
+  transition: background-color 0.4s;
+}
+
+.copylink main .input-group button.copied {
+  cursor: default;
+}
+
+.copylink main .input-group button.copied, .copylink main .input-group button:hover {
+  background-color: #74c3fb;
 }
 
 .copylink main a {

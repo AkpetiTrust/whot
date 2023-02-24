@@ -7,6 +7,7 @@ import {
   updateActiveCard,
 } from "../../redux/actions";
 import infoTextValues from "../../constants/infoTextValues";
+import { useLocation } from "react-router-dom";
 
 function usePlayCardFunctions({
   shape,
@@ -16,6 +17,13 @@ function usePlayCardFunctions({
   setIsShownState,
   delay,
 }) {
+  const location = useLocation();
+
+  if (location.pathname.includes("play-friend")) {
+    infoTextValues.computersTurn =
+      "It's your opponent's turn to make a move now";
+  }
+
   const dispatch = useDispatch();
 
   const playUserCard = () => {

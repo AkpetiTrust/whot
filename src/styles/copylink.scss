@@ -51,6 +51,16 @@
         color: #fff;
         background-color: #1098f7;
         border-radius: 0 5px 5px 0;
+        transition: background-color 0.4s;
+
+        &.copied {
+          cursor: default;
+        }
+
+        &.copied,
+        &:hover {
+          background-color: hsl(205, 94%, 72%);
+        }
       }
     }
 
