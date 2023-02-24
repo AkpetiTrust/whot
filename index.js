@@ -1,4 +1,5 @@
 const initializeDeck = require("./utils/functions/initializeDeck");
+const reverseState = require("./utils/functions/reverseState");
 
 const { deck, userCards, usedCards, opponentCards, activeCard } =
   initializeDeck();
@@ -25,21 +26,11 @@ io.on("connection", (socket) => {
       stateHasBeenInitialized: true,
     };
 
-    const playerTwoState = {
-      deck,
-      userCards: opponentCards,
-      usedCards,
-      opponentCards: userCards,
-      activeCard,
-      whoIsToPlay: "opponent",
-      infoText: "It's your opponent's turn to play",
-      infoShown: true,
-      stateHasBeenInitialized: true,
-    };
+    const playerTwoState = reverseState(playerOneState);
 
     const players = io.sockets.adapter.rooms.get(room_id);
 
-    if (Math.random() > 0.5) {
+    if (players.size === 1) {
       io.to(socket.id).emit("dispatch", {
         type: "INITIALIZE_DECK",
         payload: playerOneState,
@@ -51,8 +42,11 @@ io.on("connection", (socket) => {
       });
     }
 
-    socket.on("dispatch", (action) => {
-      socket.to(room_id).emit("dispatch", action);
+    socket.on("updateState", (updatedState) => {
+      socket.broadcast.to(room_id).emit("dispatch", {
+        type: "UPDATE_STATE",
+        payload: reverseState(updatedState),
+      });
     });
   });
 });
