@@ -2,20 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Footer } from "../../components";
 import "../../styles/copylink.css";
+import { generateRandomCode } from "../../utils/functions/generateRandomCode";
 
 function CopyLink() {
   const [randomCode, setRandomCode] = useState("");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const characters =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let generatedCode = "";
-    for (let i = 0; i < 4; i++) {
-      let randomIndex = Math.floor(Math.random() * characters.length);
-      generatedCode += characters[randomIndex];
-    }
-    setRandomCode(generatedCode);
+    setRandomCode(generateRandomCode(4));
   }, []);
 
   return (

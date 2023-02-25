@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import "../../index.css";
 import { useParams } from "react-router-dom";
 import socket from "../../socket/socket";
+import { generateRandomCode } from "../../utils/functions/generateRandomCode";
 
 function App() {
   const { room_id } = useParams();
@@ -32,7 +33,13 @@ function App() {
   };
 
   useEffect(() => {
-    socket.emit("join_room", { room_id });
+    let storedId = localStorage.getItem("storedId");
+    if (!storedId) {
+      storedId = generateRandomCode(10);
+      localStorage.setItem("storedId", storedId);
+    }
+
+    socket.emit("join_room", { room_id, storedId });
     socket.on("dispatch", handleDispatch);
 
     return () => {
