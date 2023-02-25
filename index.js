@@ -1,8 +1,7 @@
 const initializeDeck = require("./utils/functions/initializeDeck");
 const reverseState = require("./utils/functions/reverseState");
 
-const { deck, userCards, usedCards, opponentCards, activeCard } =
-  initializeDeck();
+let rooms = [];
 
 const io = require("socket.io")(8080, {
   cors: {
@@ -11,42 +10,102 @@ const io = require("socket.io")(8080, {
 });
 
 io.on("connection", (socket) => {
-  socket.on("join_room", ({ room_id }) => {
+  socket.on("join_room", ({ room_id, storedId }) => {
     socket.join(room_id);
+    let currentRoom = rooms.find((room) => room.room_id == room_id);
+    if (currentRoom) {
+      let currentPlayers = currentRoom.players;
 
-    const playerOneState = {
-      deck,
-      userCards,
-      usedCards,
-      opponentCards,
-      activeCard,
-      whoIsToPlay: "user",
-      infoText: "It's your turn to make a move now",
-      infoShown: true,
-      stateHasBeenInitialized: true,
-    };
+      if (currentPlayers.length == 1) {
+        // If I'm the only player in the room, get playerOneState
+        if (currentPlayers[0].storedId == storedId) {
+          io.to(socket.id).emit("dispatch", {
+            type: "INITIALIZE_DECK",
+            payload: currentRoom.playerOneState,
+          });
+        } else {
+          rooms = rooms.map((room) => {
+            if (room.room_id == room_id) {
+              return {
+                ...room,
+                players: [...room.players, { storedId, socketId: socket.id }],
+              };
+            }
+            return room;
+          });
+          io.to(socket.id).emit("dispatch", {
+            type: "INITIALIZE_DECK",
+            payload: reverseState(currentRoom.playerOneState),
+          });
+        }
+      } else {
+        // Check if player can actually join room
+        let currentPlayer = currentPlayers.find(
+          (player) => player.storedId == storedId
+        );
+        if (currentPlayer) {
+          io.to(socket.id).emit("dispatch", {
+            type: "INITIALIZE_DECK",
+            payload: reverseState(currentRoom.playerOneState),
+          });
+        }
+      }
+    } else {
+      // Add room to store
+      const { deck, userCards, usedCards, opponentCards, activeCard } =
+        initializeDeck();
 
-    const playerTwoState = reverseState(playerOneState);
+      const playerOneState = {
+        deck,
+        userCards,
+        usedCards,
+        opponentCards,
+        activeCard,
+        whoIsToPlay: "user",
+        infoText: "It's your turn to make a move now",
+        infoShown: true,
+        stateHasBeenInitialized: true,
+        player: "one",
+      };
 
-    const players = io.sockets.adapter.rooms.get(room_id);
+      rooms.push({
+        room_id,
+        players: [
+          {
+            storedId,
+            socketId: socket.id,
+          },
+        ],
+        playerOneState,
+      });
 
-    if (players.size === 1) {
       io.to(socket.id).emit("dispatch", {
         type: "INITIALIZE_DECK",
         payload: playerOneState,
       });
-    } else {
-      io.to(socket.id).emit("dispatch", {
-        type: "INITIALIZE_DECK",
-        payload: playerTwoState,
-      });
     }
+  });
 
-    socket.on("updateState", (updatedState) => {
-      socket.broadcast.to(room_id).emit("dispatch", {
-        type: "UPDATE_STATE",
-        payload: reverseState(updatedState),
-      });
+  socket.on("sendUpdatedState", (updatedState, room_id) => {
+    const playerOneState =
+      updatedState.player === "one" ? updatedState : reverseState(updatedState);
+    const playerTwoState = reverseState(playerOneState);
+    rooms = rooms.map((room) => {
+      if (room.room_id == room_id) {
+        return {
+          ...room,
+          playerOneState,
+        };
+      }
+      return room;
+    });
+
+    socket.broadcast.to(room_id).emit("dispatch", {
+      type: "UPDATE_STATE",
+      payload: {
+        playerOneState,
+        playerTwoState,
+      },
     });
   });
 });

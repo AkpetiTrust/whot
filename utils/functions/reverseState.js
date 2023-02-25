@@ -1,6 +1,6 @@
 const reverseState = (playerOneState) => {
   let playerTwoState = { ...playerOneState };
-  const { userCards, opponentCards, whoIsToPlay } = playerTwoState;
+  const { userCards, opponentCards, whoIsToPlay, player } = playerTwoState;
   playerTwoState = {
     ...playerTwoState,
     userCards: opponentCards,
@@ -10,6 +10,7 @@ const reverseState = (playerOneState) => {
       whoIsToPlay === "user"
         ? "It's your opponent's turn to make a move now"
         : "It's your turn to play",
+    player: player === "one" ? "two" : "one",
   };
   return playerTwoState;
 };
