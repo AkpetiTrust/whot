@@ -28,7 +28,10 @@ io.on("connection", (socket) => {
             if (room.room_id == room_id) {
               return {
                 ...room,
-                players: [...room.players, { storedId, socketId: socket.id }],
+                players: [
+                  ...room.players,
+                  { storedId, socketId: socket.id, player: "two" },
+                ],
               };
             }
             return room;
@@ -46,7 +49,10 @@ io.on("connection", (socket) => {
         if (currentPlayer) {
           io.to(socket.id).emit("dispatch", {
             type: "INITIALIZE_DECK",
-            payload: reverseState(currentRoom.playerOneState),
+            payload:
+              currentPlayer.player == "one"
+                ? currentRoom.playerOneState
+                : reverseState(currentRoom.playerOneState),
           });
         }
       }
@@ -74,6 +80,7 @@ io.on("connection", (socket) => {
           {
             storedId,
             socketId: socket.id,
+            player: "one",
           },
         ],
         playerOneState,
@@ -107,5 +114,9 @@ io.on("connection", (socket) => {
         playerTwoState,
       },
     });
+  });
+
+  socket.on("game_over", (room_id) => {
+    rooms = rooms.filter((room) => room.room_id != room_id);
   });
 });
