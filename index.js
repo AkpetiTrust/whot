@@ -11,7 +11,7 @@ const io = require("socket.io")(8080, {
 
 io.on("connection", (socket) => {
   socket.on("join_room", ({ room_id, storedId }) => {
-    if (room_id.length !== 4) {
+    if (room_id?.length !== 4) {
       io.to(socket.id).emit(
         "error",
         "Sorry! Seems like this game link is invalid. Just go back and start your own game 🙏🏾."
