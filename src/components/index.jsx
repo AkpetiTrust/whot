@@ -6,6 +6,7 @@ import InfoArea from "./InfoArea/InfoArea";
 import GameOver from "./GameOver/GameOver";
 import Preloader from "./Preloader/Preloader";
 import Footer from "./Footer/Footer";
+import ErrorPage from "./ErrorPage/ErrorPage";
 
 export {
   UserCards,
@@ -16,4 +17,5 @@ export {
   GameOver,
   Preloader,
   Footer,
+  ErrorPage,
 };

@@ -5,10 +5,11 @@ import {
   InfoArea,
   GameOver,
   Preloader,
+  ErrorPage,
 } from "../../components";
 import { Flipper } from "react-flip-toolkit";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../../index.css";
 import { useParams } from "react-router-dom";
 import socket from "../../socket/socket";
@@ -18,6 +19,7 @@ import useIsGameOver from "../../utils/hooks/useIsGameOver";
 function App() {
   const { room_id } = useParams();
   const isGameOver = useIsGameOver();
+  const [errorText, setErrorText] = useState("");
 
   const [activeCard, userCards, opponentCards, stateHasBeenInitialized] =
     useSelector((state) => [
@@ -34,6 +36,10 @@ function App() {
     dispatch(action);
   };
 
+  const handleError = (errorText) => {
+    setErrorText(errorText);
+  };
+
   useEffect(() => {
     let storedId = localStorage.getItem("storedId");
     if (!storedId) {
@@ -43,9 +49,11 @@ function App() {
 
     socket.emit("join_room", { room_id, storedId });
     socket.on("dispatch", handleDispatch);
+    socket.on("error", handleError);
 
     return () => {
       socket.off("dispatch", handleDispatch);
+      socket.off("error", handleError);
     };
   }, []);
 
@@ -54,6 +62,8 @@ function App() {
       socket.emit("game_over", room_id);
     }
   }, [isGameOver]);
+
+  if (errorText) return <ErrorPage errorText={errorText} />;
 
   if (!stateHasBeenInitialized) {
     return <></>;
