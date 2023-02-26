@@ -11,6 +11,14 @@ const io = require("socket.io")(8080, {
 
 io.on("connection", (socket) => {
   socket.on("join_room", ({ room_id, storedId }) => {
+    if (room_id.length !== 4) {
+      io.to(socket.id).emit(
+        "error",
+        "Sorry! Seems like this game link is invalid. Just go back and start your own game 🙏🏾."
+      );
+      return;
+    }
+
     socket.join(room_id);
     let currentRoom = rooms.find((room) => room.room_id == room_id);
     if (currentRoom) {
@@ -54,6 +62,11 @@ io.on("connection", (socket) => {
                 ? currentRoom.playerOneState
                 : reverseState(currentRoom.playerOneState),
           });
+        } else {
+          io.to(socket.id).emit(
+            "error",
+            "Sorry! There are already two players on this game, just go back and start your own game 🙏🏾."
+          );
         }
       }
     } else {
