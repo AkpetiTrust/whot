@@ -13,9 +13,11 @@ import "../../index.css";
 import { useParams } from "react-router-dom";
 import socket from "../../socket/socket";
 import { generateRandomCode } from "../../utils/functions/generateRandomCode";
+import useIsGameOver from "../../utils/hooks/useIsGameOver";
 
 function App() {
   const { room_id } = useParams();
+  const isGameOver = useIsGameOver();
 
   const [activeCard, userCards, opponentCards, stateHasBeenInitialized] =
     useSelector((state) => [
@@ -46,6 +48,12 @@ function App() {
       socket.off("dispatch", handleDispatch);
     };
   }, []);
+
+  useEffect(() => {
+    if (isGameOver().answer && stateHasBeenInitialized) {
+      socket.emit("game_over", room_id);
+    }
+  }, [isGameOver]);
 
   if (!stateHasBeenInitialized) {
     return <></>;
