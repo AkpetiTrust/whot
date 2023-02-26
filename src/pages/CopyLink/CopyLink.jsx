@@ -7,10 +7,15 @@ import { generateRandomCode } from "../../utils/functions/generateRandomCode";
 function CopyLink() {
   const [randomCode, setRandomCode] = useState("");
   const [copied, setCopied] = useState(false);
+  const [link, setLink] = useState("");
 
   useEffect(() => {
     setRandomCode(generateRandomCode(4));
   }, []);
+
+  useEffect(() => {
+    setLink(`https://whot.trust-akpeti.com/play-friend/${randomCode}`);
+  }, [randomCode]);
 
   return (
     <section className="copylink">
@@ -23,22 +28,19 @@ function CopyLink() {
             Copy the link below and send it to your friend, then start the game
           </p>
           <div className="input-group">
-            <input
-              type="text"
-              value={`https://whot.trust-akpeti.com/play-friend/${randomCode}`}
-              readOnly
-            />
+            <input type="text" value={link} readOnly />
             <button
               disabled={copied}
               className={copied ? "copied" : ""}
               onClick={() => {
-                navigator.clipboard
-                  .writeText(
-                    `https://whot.trust-akpeti.com/play-friend/${randomCode}`
-                  )
-                  .then(() => {
-                    setCopied(true);
+                navigator.clipboard.writeText(link).then(() => {
+                  setCopied(true);
+                  navigator.share({
+                    url: link,
+                    title: "Naija WHOT",
+                    text: "PLay a game of WHOT with me!",
                   });
+                });
               }}
             >
               {copied ? "COPIED" : "COPY"}
