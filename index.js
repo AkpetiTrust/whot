@@ -5,7 +5,7 @@ let rooms = [];
 
 const io = require("socket.io")(8080, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://whot.trust-akpeti.com",
   },
 });
 
