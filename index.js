@@ -88,7 +88,11 @@ io.on("connection", (socket) => {
                 ...room,
                 players: [...room.players].map((player) => {
                   if (player.storedId == storedId) {
-                    return { storedId, socketId: socket.id, player: "two" };
+                    return {
+                      storedId,
+                      socketId: socket.id,
+                      player: currentPlayer.player,
+                    };
                   }
                   return player;
                 }),
@@ -183,7 +187,8 @@ io.on("connection", (socket) => {
     if (currentRoom) {
       let opponentSocketId = currentRoom.players.find(
         (player) => player.socketId != socket.id
-      ).socketId;
+      )?.socketId;
+      if (!opponentSocketId) return;
       io.to(opponentSocketId).emit("opponentOnlineStateChanged", false);
     }
   });
