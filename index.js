@@ -25,11 +25,21 @@ io.on("connection", (socket) => {
       let currentPlayers = currentRoom.players;
 
       if (currentPlayers.length == 1) {
-        // If I'm the only player in the room, get playerOneState
+        // If I'm the only player in the room, get playerOneState, and update my socketId
         if (currentPlayers[0].storedId == storedId) {
           io.to(socket.id).emit("dispatch", {
             type: "INITIALIZE_DECK",
             payload: currentRoom.playerOneState,
+          });
+
+          rooms = rooms.map((room) => {
+            if (room.room_id == room_id) {
+              return {
+                ...room,
+                players: [{ storedId, socketId: socket.id, player: "one" }],
+              };
+            }
+            return room;
           });
         } else {
           rooms = rooms.map((room) => {
@@ -44,13 +54,22 @@ io.on("connection", (socket) => {
             }
             return room;
           });
+
           io.to(socket.id).emit("dispatch", {
             type: "INITIALIZE_DECK",
             payload: reverseState(currentRoom.playerOneState),
           });
+
+          // Check if my opponent is online
+          socket.broadcast.to(room_id).emit("confirmOnlineState");
+
+          let opponentSocketId = currentPlayers.find(
+            (player) => player.storedId != storedId
+          ).socketId;
+          io.to(opponentSocketId).emit("opponentOnlineStateChanged", true);
         }
       } else {
-        // Check if player can actually join room
+        // Check if player can actually join room, after joining, update his socketId
         let currentPlayer = currentPlayers.find(
           (player) => player.storedId == storedId
         );
@@ -62,6 +81,29 @@ io.on("connection", (socket) => {
                 ? currentRoom.playerOneState
                 : reverseState(currentRoom.playerOneState),
           });
+
+          rooms = rooms.map((room) => {
+            if (room.room_id == room_id) {
+              return {
+                ...room,
+                players: [...room.players].map((player) => {
+                  if (player.storedId == storedId) {
+                    return { storedId, socketId: socket.id, player: "two" };
+                  }
+                  return player;
+                }),
+              };
+            }
+            return room;
+          });
+
+          let opponentSocketId = currentPlayers.find(
+            (player) => player.storedId != storedId
+          ).socketId;
+          io.to(opponentSocketId).emit("opponentOnlineStateChanged", true);
+
+          // Check if my opponent is online
+          socket.broadcast.to(room_id).emit("confirmOnlineState");
         } else {
           io.to(socket.id).emit(
             "error",
@@ -131,5 +173,28 @@ io.on("connection", (socket) => {
 
   socket.on("game_over", (room_id) => {
     rooms = rooms.filter((room) => room.room_id != room_id);
+  });
+
+  socket.on("disconnect", () => {
+    // Find the room the player disconnected from
+    let currentRoom = rooms.find((room) =>
+      room.players.map((player) => player.socketId).includes(socket.id)
+    );
+    if (currentRoom) {
+      let opponentSocketId = currentRoom.players.find(
+        (player) => player.socketId != socket.id
+      ).socketId;
+      io.to(opponentSocketId).emit("opponentOnlineStateChanged", false);
+    }
+  });
+
+  socket.on("confirmOnlineState", (storedId, room_id) => {
+    let currentRoom = rooms.find((room) => room.room_id == room_id);
+    if (currentRoom) {
+      let opponentSocketId = currentRoom.players.find(
+        (player) => player.storedId != storedId
+      ).socketId;
+      io.to(opponentSocketId).emit("opponentOnlineStateChanged", true);
+    }
   });
 });
