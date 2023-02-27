@@ -7,6 +7,8 @@ import GameOver from "./GameOver/GameOver";
 import Preloader from "./Preloader/Preloader";
 import Footer from "./Footer/Footer";
 import ErrorPage from "./ErrorPage/ErrorPage";
+import OnlineIndicator from "./OnlineIndicator/OnlineIndicator";
+import OnlineIndicators from "./OnlineIndicators/OnlineIndicators";
 
 export {
   UserCards,
@@ -18,4 +20,6 @@ export {
   Preloader,
   Footer,
   ErrorPage,
+  OnlineIndicator,
+  OnlineIndicators,
 };

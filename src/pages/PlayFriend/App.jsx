@@ -6,6 +6,7 @@ import {
   GameOver,
   Preloader,
   ErrorPage,
+  OnlineIndicators,
 } from "../../components";
 import { Flipper } from "react-flip-toolkit";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,6 +21,10 @@ function App() {
   const { room_id } = useParams();
   const isGameOver = useIsGameOver();
   const [errorText, setErrorText] = useState("");
+  const [onlineState, setOnlineState] = useState({
+    userIsOnline: false,
+    opponentIsOnline: false,
+  });
 
   const [activeCard, userCards, opponentCards, stateHasBeenInitialized] =
     useSelector((state) => [
@@ -31,15 +36,6 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const handleDispatch = (action) => {
-    action.isFromServer = true;
-    dispatch(action);
-  };
-
-  const handleError = (errorText) => {
-    setErrorText(errorText);
-  };
-
   useEffect(() => {
     let storedId = localStorage.getItem("storedId");
     if (!storedId) {
@@ -47,13 +43,46 @@ function App() {
       localStorage.setItem("storedId", storedId);
     }
 
+    const handleDispatch = (action) => {
+      action.isFromServer = true;
+      dispatch(action);
+    };
+
+    const handleError = (errorText) => {
+      setErrorText(errorText);
+    };
+
+    const handleDisconnect = () => {
+      setOnlineState((prevState) => ({ ...prevState, userIsOnline: false }));
+    };
+
+    const handleConnect = () => {
+      setOnlineState((prevState) => ({ ...prevState, userIsOnline: true }));
+    };
+
+    const handleOpponentOnlineState = (opponentIsOnline) => {
+      setOnlineState((prevState) => ({ ...prevState, opponentIsOnline }));
+    };
+
+    const handleConfirmOnlineState = () => {
+      socket.emit("confirmOnlineState", storedId, room_id);
+    };
+
     socket.emit("join_room", { room_id, storedId });
     socket.on("dispatch", handleDispatch);
     socket.on("error", handleError);
+    socket.on("disconnect", handleDisconnect);
+    socket.on("connect", handleConnect);
+    socket.on("opponentOnlineStateChanged", handleOpponentOnlineState);
+    socket.on("confirmOnlineState", handleConfirmOnlineState);
 
     return () => {
       socket.off("dispatch", handleDispatch);
       socket.off("error", handleError);
+      socket.off("disconnect", handleDisconnect);
+      socket.off("connect", handleConnect);
+      socket.off("opponentOnlineStateChanged", handleOpponentOnlineState);
+      socket.off("confirmOnlineState", handleConfirmOnlineState);
     };
   }, []);
 
@@ -78,6 +107,7 @@ function App() {
         <InfoArea />
         <GameOver />
         <Preloader />
+        <OnlineIndicators onlineState={onlineState} />
       </div>
     </Flipper>
   );

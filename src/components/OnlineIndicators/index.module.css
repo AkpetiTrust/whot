@@ -1,0 +1,29 @@
+.indicators {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 40px 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 120px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  z-index: 3;
+}
+
+@media screen and (max-width: 900px) {
+  .indicators {
+    right: unset;
+    left: 20px;
+  }
+}
+/*# sourceMappingURL=index.module.css.map */

@@ -1,0 +1,19 @@
+.indicators {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 120px;
+  width: max-content;
+  z-index: 3;
+}
+
+@media screen and(max-width:900px) {
+  .indicators {
+    right: unset;
+    left: 20px;
+  }
+}
