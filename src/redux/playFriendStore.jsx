@@ -12,7 +12,8 @@ const enhancedReducer = (state, action) => {
 
   if (action.type === "UPDATE_STATE") {
     const { playerOneState, playerTwoState } = action.payload;
-    return state.player === "one" ? playerOneState : playerTwoState;
+    let newState = state.player === "one" ? playerOneState : playerTwoState;
+    return { ...newState, infoShown: state.infoShown };
   }
 
   return combinedReducer(state, action);

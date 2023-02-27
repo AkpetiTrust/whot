@@ -7,6 +7,7 @@ import {
   Preloader,
   ErrorPage,
   OnlineIndicators,
+  ConnectionLoader,
 } from "../../components";
 import { Flipper } from "react-flip-toolkit";
 import { useSelector, useDispatch } from "react-redux";
@@ -95,11 +96,11 @@ function App() {
   if (errorText) return <ErrorPage errorText={errorText} />;
 
   if (!stateHasBeenInitialized) {
-    return <></>;
+    return <ConnectionLoader />;
   }
 
   return (
-    <Flipper flipKey={[activeCard, ...userCards, ...opponentCards]}>
+    <Flipper flipKey={[...userCards, ...opponentCards]}>
       <div className="App">
         <OpponentCards />
         <CenterArea />

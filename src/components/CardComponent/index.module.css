@@ -4,6 +4,7 @@
   --height: 138px;
   width: var(--width);
   position: relative;
+  z-index: 5;
   cursor: pointer;
   font-family: "Inter", sans-serif;
   -webkit-perspective: 500px;
