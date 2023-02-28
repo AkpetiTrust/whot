@@ -38,7 +38,7 @@ function CopyLink() {
                   navigator.share({
                     url: link,
                     title: "Naija WHOT",
-                    text: "PLay a game of WHOT with me!",
+                    text: "Play a game of WHOT with me!",
                   });
                 });
               }}
