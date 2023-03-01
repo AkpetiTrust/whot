@@ -33,28 +33,28 @@ To run the project locally:
 
 1. Clone the main branch
 
-```
-git clone https://github.com/AkpetiTrust/whot.git
-```
+   ```
+   git clone https://github.com/AkpetiTrust/whot.git
+   ```
 
 2. Run the front end using npm
 
-```
-npm install && npm start
-```
+   ```
+   npm install && npm start
+   ```
 
 3. Clone the server branch
 
-```
-git clone -b server https://github.com/AkpetiTrust/whot.git
-```
+   ```
+   git clone -b server https://github.com/AkpetiTrust/whot.git
+   ```
 
 4. Run the server using node
 
-```
-node index.js
-```
+   ```
+   node index.js
+   ```
 
 ## Contributing 💻
 
-Contributions are surely welcome! You can check out the [public roadmap]() to see the feature ideas in store for the game, then [create a new issue](https://github.com/AkpetiTrust/whot/issues/new/choose) if you're interested in contributing to any. If the idea you have isn't in the roadmap, still feel free to create a new issue to talk about the idea.
+Contributions are surely welcome! You can check out the [public roadmap](https://github.com/AkpetiTrust/whot/wiki/Public-Roadmap) to see the feature ideas in store for the game, then [create a new issue](https://github.com/AkpetiTrust/whot/issues/new/choose) if you're interested in contributing to any. If the idea you have isn't in the roadmap, still feel free to create a new issue to talk about the idea.
