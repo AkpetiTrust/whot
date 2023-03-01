@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# Naija Whot (Open Source)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br />
 
-## Available Scripts
+![Game play](./public/MultiplayerMockup.png)
 
-In the project directory, you can run:
+<br />
 
-### `npm start`
+This is a game of Naija Whot built for the web. It has both single and multiplayer features. You can check it out [live here](https://whot.trust-akpeti.com).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies ⚙
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Front end:
 
-### `npm test`
+- React
+- Redux
+- [React-flip-toolkit (for animations)](https://github.com/aholachek/react-flip-toolkit)
+- SCSS
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Back end
 
-### `npm run build`
+- socket.io (Running on Node)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Running project 🚀
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The repo has three branches:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- main: This holds the front end React code.
+- server: This holds the socket server code.
+- gh-pages: For Github Pages hosting.
 
-### `npm run eject`
+To run the project locally:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clone the main branch
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+git clone https://github.com/AkpetiTrust/whot.git
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Run the front end using npm
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+npm install && npm start
+```
 
-## Learn More
+3. Clone the server branch
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+git clone -b server https://github.com/AkpetiTrust/whot.git
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Run the server using node
 
-### Code Splitting
+```
+node index.js
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Contributing 💻
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Contributions are surely welcome! You can check out the [public roadmap]() to see the feature ideas in store for the game, then [create a new issue](https://github.com/AkpetiTrust/whot/issues/new/choose) if you're interested in contributing to any. If the idea you have isn't in the roadmap, still feel free to create a new issue to talk about the idea.
