@@ -1,13 +1,6 @@
 const initializeDeck = require("./utils/functions/initializeDeck");
 const reverseState = require("./utils/functions/reverseState");
 
-const port = process.env.PORT || 3000;
-
-const http = require('http');
-
-const server = http.createServer();
-server.listen(port);
-
 let rooms = [];
 
 const io = require("socket.io")(8080, {
